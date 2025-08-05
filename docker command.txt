@@ -1,0 +1,5 @@
+docker ps 
+docker ps -a
+docker rm
+docker rename old new
+docker system prune -a
