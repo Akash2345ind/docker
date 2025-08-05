@@ -3,3 +3,8 @@ docker ps -a
 docker rm
 docker rename old new
 docker system prune -a
+docker exec
+docker -it container_name
+ctrl + p + q
+docker attach container_name
+docker exec container_id cat /etc/issue
