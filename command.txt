@@ -5,6 +5,6 @@ docker rename old new
 docker system prune -a
 docker exec
 docker -it container_name
-ctrl + p + q
+ctrl + p + q -> to exit from docker without turn off
 docker attach container_name
 docker exec container_id cat /etc/issue
