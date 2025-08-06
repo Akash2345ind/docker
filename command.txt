@@ -1,6 +1,8 @@
 docker ps 
 docker ps -a
 docker rm
+docker start 
+docker run --name new_name -d docker_name
 docker rename old new
 docker system prune -a
 docker exec
