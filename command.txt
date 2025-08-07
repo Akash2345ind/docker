@@ -10,3 +10,4 @@ docker -it container_name
 ctrl + p + q -> to exit from docker without turn off
 docker attach container_name
 docker exec container_id cat /etc/issue
+docker build -t <image_name>:<tag> <path_to_dockerfile>      docker build -t myapp:1.0 .
