@@ -1,0 +1,1 @@
+docker will create default network 172.168.1.** if we don't mention any ip address in docker network command
