@@ -11,3 +11,8 @@ ctrl + p + q -> to exit from docker without turn off
 docker attach container_name
 docker exec container_id cat /etc/issue
 docker build -t <image_name>:<tag> <path_to_dockerfile>      docker build -t myapp:1.0 .
+docker inspect
+docker network ls
+docker run -d --network mynet nginx
+docker network create name --subnet 10.0.0.0/8 --driver bridge
+docker run -- name bridge -- network subnet-nw -d nginx
