@@ -16,3 +16,4 @@ docker network ls
 docker run -d --network mynet nginx
 docker network create name --subnet 10.0.0.0/8 --driver bridge
 docker run -- name bridge -- network subnet-nw -d nginx
+docker network connect mynet1 c2
