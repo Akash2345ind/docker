@@ -19,3 +19,5 @@ docker run -- name bridge -- network subnet-nw -d nginx
 docker network connect mynet1 c2
 docker images -q --filter "dangling=true" | xargs docker rmi
 docker run -d --name my-nginx -p 80:80 nginx
+docker start -ai [container_name_or_id]
+docker run -v /host/path:/app my_image
