@@ -21,3 +21,9 @@ docker images -q --filter "dangling=true" | xargs docker rmi
 docker run -d --name my-nginx -p 80:80 nginx
 docker start -ai [container_name_or_id]
 docker run -v /host/path:/app my_image
+docker stack deploy -c stack.yaml
+docker node ls
+docker node service
+docker node promote
+docker node demote
+docker service rollback
