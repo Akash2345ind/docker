@@ -27,3 +27,5 @@ docker node service
 docker node promote
 docker node demote
 docker service rollback
+docker compose.yml
+docker compose up
