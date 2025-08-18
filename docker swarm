@@ -1,0 +1,41 @@
+Docker Swarm is an orchestration tool that allows you to manage a cluster of Docker nodes as a single virtual system. The `docker stack`, `docker node`, and `docker service` commands are essential for managing applications and infrastructure in a Swarm.
+
+***
+
+### `docker stack`
+
+This command manages an entire application stack, which is a group of related services that make up a complete application. It's typically used with a Compose file (`docker-compose.yml`) to define the services, networks, and volumes for the application.
+
+* `docker stack deploy`: This is the most crucial subcommand. It **deploys a new stack** or **updates an existing one** using a Compose file. You specify the Compose file and a name for your stack. If the stack already exists, it performs a rolling update to apply changes. 
+* `docker stack ls`: Lists all the stacks currently deployed on the Swarm.
+* `docker stack ps`: Shows the running tasks (containers) for a specific stack, including their status and the node they're running on.
+* `docker stack rm`: Removes a stack and all of its associated services and networks. This is the command to use for a clean tear-down of an application.
+* `docker stack services`: Lists the services that belong to a specific stack.
+
+***
+
+### `docker node`
+
+This command manages the nodes (machines) participating in a Docker Swarm. You use it to inspect, list, and modify the roles of nodes within the cluster.
+
+* `docker node ls`: Lists all the nodes in the Swarm, showing their ID, hostname, availability, and their manager/worker status.
+* `docker node promote`: Promotes a worker node to a **manager node**. Manager nodes are responsible for maintaining the Swarm state and scheduling tasks.
+* `docker node demote`: Demotes a manager node back to a **worker node**. This is useful for high-availability Swarms where you have multiple managers.
+* `docker node inspect`: Displays detailed information about one or more nodes, including their status, labels, and the resources they have.
+* `docker node update`: Updates the configuration of a node. You can, for example, change the node's availability from `active` to `drain` to prevent new tasks from being scheduled on it.
+* `docker node rm`: Removes a node from the Swarm. This should only be done after draining the node of its tasks.
+
+***
+
+### `docker service`
+
+This command manages services, which are the fundamental building blocks of a Swarm application. A service defines which container image to use and how many replicas of that container should be running.
+
+* `docker service create`: Creates a new service. You specify the image, the number of replicas, and other configurations.
+* `docker service ls`: Lists all services running in the Swarm, showing their name, the number of replicas, and the image they're using.
+* `docker service ps`: Shows the individual tasks (containers) that make up a service, along with their current state and the node they are on.
+* `docker service rm`: Removes a service and stops all of its running tasks.
+* `docker service scale`: **Scales a service up or down** by changing the number of replicas. For example, `docker service scale my-web-app=5` would scale the service to five replicas.
+* `docker service update`: **Performs a rolling update** to a service. You can use it to change the image version, environment variables, or other service configurations.
+* `docker service inspect`: Displays detailed, low-level information about a service in JSON format.
+* `docker service logs`: Fetches and streams logs from all tasks belonging to a service.
