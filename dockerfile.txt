@@ -1,0 +1,37 @@
+
+
+* `FROM <image>:<tag>`: This command sets the base image for subsequent instructions. Every Dockerfile must begin with a `FROM` command. It specifies the starting point, such as an operating system (`ubuntu:22.04`) or a pre-configured language environment (`python:3.10-slim`).
+
+* `RUN <command>`: This executes a command in a new layer on top of the current image and commits the results. It is typically used for installing software packages, creating directories, or performing other setup tasks. Each `RUN` instruction adds a new layer to the image, so it's best to chain multiple commands using `&&` to reduce the number of layers and the final image size.
+* Example: `RUN apt-get update && apt-get install -y git`
+
+
+* `CMD ["executable", "param1", "param2"]`: This provides defaults for an executing container. Unlike `RUN`, which executes a command during the image build, `CMD` specifies the command that will run when the container starts. There can only be one `CMD` instruction in a Dockerfile. If you specify more than one, only the last one takes effect. 
+
+* `ENTRYPOINT ["executable", "param1", "param2"]`: This configures a container to run as an executable. `ENTRYPOINT` is similar to `CMD`, but its command is not overridden when the container is run with arguments. Instead, the arguments are appended to the `ENTRYPOINT` command. This is useful for creating a container that you want to use as a standalone tool.
+* Example: `ENTRYPOINT ["/usr/bin/python3"]` would allow you to run `docker run my_image my_script.py` and have `my_script.py` be executed by Python.
+
+
+
+* `COPY <src> <dest>`: This copies new files or directories from the source `<src>` and adds them to the filesystem of the container at the destination `<dest>`. The source is a path on your host machine relative to the build context, and the destination is the path inside the container.
+
+
+* `ADD <src> <dest>`: Similar to `COPY`, but with additional functionality. `ADD` can copy local files and also automatically extract compressed files (`.tar`, `.gz`, `.zip`) from the source to the destination. It can also copy files from a URL. While `ADD` is more flexible, it's a best practice to use `COPY` for simple file transfers to avoid unexpected behavior and to ensure a more transparent build process.
+
+
+* `WORKDIR /path/to/workdir`: This sets the working directory for any `RUN`, `CMD`, `ENTRYPOINT`, `COPY`, and `ADD` instructions that follow it. It's a good practice to set a `WORKDIR` to ensure your commands are executed in the correct directory within the container, making the Dockerfile easier to read and maintain.
+
+
+* `EXPOSE <port> [<port>...]`: This informs Docker that the container listens on the specified network ports at runtime. It does not actually publish the port; it only acts as documentation between the person who builds the image and the person who runs the container. To actually publish a port and make it accessible from the host, you use the `-p` or `--publish` flag with `docker run`.
+
+
+* `ENV <key>=<value>`: This sets an environment variable. The variable will be available to any subsequent `RUN`, `CMD`, or `ENTRYPOINT` instructions in the Dockerfile, as well as to the application running inside the container.
+
+
+* `LABEL <key>=<value>`: This adds metadata to an image. Labels are key-value pairs that can be used to add information like the maintainer, version, or license to the image. These can be helpful for organization and automation.
+
+
+* `USER <user>[:<group>]`: This sets the user name or UID to run subsequent `RUN`, `CMD`, and `ENTRYPOINT` commands. It is a security best practice to avoid running containers as the root user.
+
+
+* `ARG <name>[=<default value>]`: This defines a build-time variable that users can pass to the builder with the `docker build --build-arg <varname>=<value>` command. Unlike `ENV`, `ARG` variables are not available to the container at runtime. They are used to parameterize the build process itself.
