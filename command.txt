@@ -32,3 +32,4 @@ docker-compose up, logs, run
 docker service ps service_name
 docker save -o <image_name>.tar <image_name>
 docker load -i <image_name>.tar
+docker cp <containerId>:/file/path/within/container /host/path/target
