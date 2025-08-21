@@ -33,3 +33,5 @@ docker service ps service_name
 docker save -o <image_name>.tar <image_name>
 docker load -i <image_name>.tar
 docker cp <containerId>:/file/path/within/container /host/path/target
+docker run --rm -v $(pwd)/data:/app/data --name=test-bind-mount volume-test-image attach volume to local directory
+docker run --rm -v my-volume:/app/data --name=test-named-volume volume-test-image attch volume to created volume
