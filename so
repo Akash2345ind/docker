@@ -1,1 +1,3 @@
 docker will create default network 172.168.1.** if we don't mention any ip address in docker network command
+If a Dockerfile has CMD ["echo", "Hello, World!"], running the container with docker run myimage will print "Hello, World!". However, running docker run myimage ls -l will ignore the CMD and instead execute ls -l
+If a Dockerfile has ENTRYPOINT ["ping"] and CMD ["localhost"], running the container with docker run myimage will execute ping localhost. Running docker run myimage google.com will execute ping google.com, appending the new argument to the ENTRYPOINT
