@@ -1,0 +1,107 @@
+AraDockerfiles use a variety of commands to assemble Docker images. Here’s a concise breakdown of the most common commands:
+Dockerfile Commands Explained
+•	FROM
+Specifies the base image for the new image you're building. Must be the first command in the Dockerfile.
+•	FROM ubuntu:latest
+•	RUN
+Executes commands in a new layer and commits the results. Commonly used for installing packages.
+•	RUN apt-get update && apt-get install -y nginx
+•	CMD
+Provides defaults for executing containers from the built image. Only one CMD can be specified per Dockerfile.
+•	CMD ["nginx", "-g", "daemon off;"]
+•	ENTRYPOINT
+Configures a container that will run as an executable. It allows you to set the main command for the container.
+•	ENTRYPOINT ["/usr/sbin/nginx"]
+•	COPY
+Copies files or directories from the host machine into the Docker image filesystem.
+•	COPY . /app
+•	ADD
+Similar to COPY but also supports URL sources and automatic unpacking of compressed files.
+•	ADD myapp.tar.gz /app
+•	ENV
+Sets environment variables in the container, which can be accessed in subsequent instructions.
+Docker ENV:
+•	Scope: Available in both the build process and within the running container. Environment variables can be accessed by any processes running inside the container.
+•	Use Case: Useful for defining values that the application needs at runtime, such as configuration settings or credentials
+•	ENV APP_ENV=production
+•	EXPOSE
+Indicates the ports on which the container will listen for connections. This is informational and does not actually publish the port.
+•	EXPOSE 80
+•	VOLUME
+Creates a mount point with the specified path and marks it as holding externally mounted volumes from native host or other containers.
+•	VOLUME ["/data"]
+•	WORKDIR
+Sets the working directory for subsequent RUN, CMD, ENTRYPOINT, COPY, and ADD commands.
+•	WORKDIR /app
+•	USER
+Sets the user name or UID to use when running the image.
+•	USER webuser
+•	ARG
+Defines a variable that users can pass at build-time to the Dockerfile with the docker build command via --build-arg.
+•	ARG version=1.0
+Docker ARG:
+•	Scope: Limited to the build process. They are only available during image creation and not in the running container.
+•	Use Case: Ideal for passing build-time variables, such as version numbers or build configurations
+•	Access: Cannot be accessed after the image is created.
+•	SHELL
+Allows the default shell used for the shell form of commands to be configured.
+•	SHELL ["powershell", "-command"]
+Summary
+These commands collectively help in building a Docker image by specifying its configuration, commands to execute, as well as volumes and environment settings. For the best results, understanding how these commands interact is crucial!
+Remember to maintain best practices such as minimizing the number of layers by combining commands when possible.
+The order of commands in a Dockerfile is crucial as it affects the image build process. Here’s a standard sequence of commands:
+1.	FROM: Set the base image for subsequent instructions.
+2.	LABEL: Add metadata to the image.
+3.	RUN: Execute commands to install packages or make changes to the file system.
+4.	COPY: Copy files or directories from the host to the image.
+5.	ADD: Similar to COPY but also supports URLs and tarball extraction.
+6.	CMD: Specify the command to run when a container is started from the image.
+7.	ENTRYPOINT: Configure a container that will run as an executable.
+8.	ENV: Set environment variables.
+9.	EXPOSE: Indicate the ports that the container listens on.
+10.	VOLUME: Create a mount point for external volumes.
+11.	WORKDIR: Set the working directory for any RUN, CMD, or ENTRYPOINT instructions.
+12.	USER: Specify the user to use when running the image.
+Best Practices:
+•	Combine RUN commands to reduce the number of layers.
+•	Order COPY and ADD commands optimally to take advantage of caching.
+•	Place frequently changed commands towards the bottom to maximize build efficiency.
+and how many of them have sigle use and multiple use
+In a Dockerfile, commands can be categorized based on whether they are generally used for single use or can be used multiple times throughout the file:
+Single Use Commands:
+•	FROM: Typically appears only once to define the base image.
+•	LABEL: Usually set once for image metadata.
+•	CMD: There can be only one CMD instruction, but it may be overridden by command-line arguments.
+•	ENTRYPOINT: Generally, you want only one ENTRYPOINT, since it defines what will run as the primary process.
+Multiple Use Commands:
+•	RUN: Can appear multiple times to execute different commands at various stages of building the image.
+•	COPY: Can be used multiple times to transfer different files or directories.
+•	ADD: Like COPY, it can also be used multiple times.
+•	ENV: You can set multiple environment variables with separate ENV commands.
+•	VOLUME: Multiple volumes can be defined.
+•	WORKDIR: You can change the working directory by using WORKDIR multiple times.
+•	USER: Can be used multiple times to change the user context.
+•	EXPOSE: Can also appear multiple times to expose different ports.
+Summary:
+•	Single Use: FROM, LABEL, CMD, ENTRYPOINT.
+•	Multiple Use: RUN, COPY, ADD, ENV, VOLUME, WORKDIR, USER, EXPOSE.
+which of these commands will create layer and which will not
+In Docker, each command in a Dockerfile creates a new layer in the image. Here’s a breakdown of which commands create layers and which do not:
+Commands That Create Layers:
+•	FROM: Each base image defined creates a new layer.
+•	RUN: Executes commands and each RUN creates a new layer containing the result.
+•	COPY: Each COPY command adds a new layer with the copied files.
+•	ADD: Similar to COPY, it also creates a new layer for the content added.
+•	ENV: Each ENV command creates a new layer to store environment variables.
+•	EXPOSE: Creates a new layer to expose ports but doesn't affect the filesystem.
+•	VOLUME: Creates new layers defining volumes but doesn’t affect the filesystem directly.
+•	LABEL: Each LABEL instruction creates a new layer reflecting metadata.
+Commands That Do NOT Create Layers:
+•	CMD: Defines a command to run in a container but does not create a new layer.
+•	ENTRYPOINT: Similar to CMD, it defines what runs without adding a layer.
+•	WORKDIR: Changes the working directory but does not create a new layer when specifying a directory.
+•	USER: Sets the user context without adding a layer.
+Summary:
+•	Creates Layers: FROM, RUN, COPY, ADD, ENV, EXPOSE, VOLUME, LABEL.
+•	Does Not Create Layers: CMD, ENTRYPOINT, WORKDIR, USER.
+
