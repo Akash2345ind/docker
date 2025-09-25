@@ -7,10 +7,10 @@ Specifies the base image for the new image you're building. Must be the first co
 Executes commands in a new layer and commits the results. Commonly used for installing packages.
 •	RUN apt-get update && apt-get install -y nginx
 •	CMD
-Provides defaults for executing containers from the built image. Only one CMD can be specified per Dockerfile.
+Provides defaults for executing containers from the built image. Only one CMD can be specified per Dockerfile.can be overridden
 •	CMD ["nginx", "-g", "daemon off;"]
 •	ENTRYPOINT
-Configures a container that will run as an executable. It allows you to set the main command for the container.
+Configures a container that will run as an executable. It allows you to set the main command for the container. Cannot be overridden
 •	ENTRYPOINT ["/usr/sbin/nginx"]
 •	COPY
 Copies files or directories from the host machine into the Docker image filesystem.
