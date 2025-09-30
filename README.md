@@ -56,9 +56,3 @@
   - Using Git with IDEs (e.g., Visual Studio Code, IntelliJ)
   - Git GUI clients (e.g., Sourcetree, GitKraken)
   - Continuous Integration/Continuous Deployment (CI/CD) with Git
-
-- **Learning Resources**
-  - Recommended books and online courses
-  - Useful websites and documentation
-
-Feel free to ask if you want more details on any specific topic!
